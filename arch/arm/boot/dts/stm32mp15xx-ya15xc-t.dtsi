@@ -128,7 +128,7 @@
 		pwms = <&pwm2 0 5000000>;
 		brightness-levels = <0 4 8 16 32 64 128 255>;
 		default-brightness-level = <7>;
-		status = "okay";
+		status = "disabled";
 	};
 	*/
 	
@@ -179,23 +179,23 @@
 	vdd-supply = <&vdd>;
         vdda-supply = <&vdda>;
         vref-supply = <&vrefbuf>;
-	status = "okay";
+	status = "disabled";
 
 	adc1: adc@0 {
                 st,min-sample-time-nsecs = <10000>;
                 st,adc-channels = <0 1 6 10 13>;
-                status = "okay";
+                status = "disabled";
         };
 
         adc2: adc@100 {
 		st,min-sample-time-nsecs = <5000>;
                 st,adc-channels = <0 1 10 12>;
-                status = "okay";
+                status = "disabled";
         };
 	
 
         adc_temp: temp {
-                status = "okay";
+                status = "disabled";
         };
 };
 
@@ -347,7 +347,7 @@
                 clocks = <&clk_ext_camera>;
                 clock-names = "xvclk";
                 reset-gpios = <&pcf8575 0 (GPIO_ACTIVE_LOW | GPIO_PUSH_PULL)>;
-                status = "okay";
+                status = "disabled";
                 
                 port {
                         camera0: endpoint {
@@ -536,7 +536,7 @@
 
 /*DCMI for camera*/
 &dcmi {
-        status = "okay";
+        status = "disabled";
         pinctrl-names = "default", "sleep";
         pinctrl-0 = <&dcmi_pins_mx>;
         pinctrl-1 = <&dcmi_sleep_pins_mx>;
@@ -711,7 +711,7 @@
 	pinctrl-0 = <&spi5_pins_mx>;
 	pinctrl-1 = <&spi5_sleep_pins_mx>;
 	cs-gpios = <&gpioh 5 0>;
-	status = "okay";
+	status = "disabled";
 
 	spidev@0 {     
        		 compatible = "spidev";
@@ -737,7 +737,7 @@
 		pinctrl-names = "default", "sleep";
 		pinctrl-0 = <&tim2_pwm_pins_mx>;
 		pinctrl-1 = <&tim2_pwm_sleep_pins_mx>;
-		status = "okay";
+		status = "disabled";
 	};
 };
 */
