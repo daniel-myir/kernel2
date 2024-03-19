@@ -1050,8 +1050,7 @@
 
 			usart3_pins_mx: usart3_mx-0 {
                                 pins1 {
-                                        pinmux = <STM32_PINMUX('B', 12, AF8)>, /* USART3_RX */
-                                        <STM32_PINMUX('I', 10, AF8)>; /* USART3_CTS */
+                                        pinmux = <STM32_PINMUX('B', 12, AF8)>; /* USART3_RX */
                                         bias-disable;
                                 };
                                 pins2 {
@@ -1066,7 +1065,6 @@
                         usart3_sleep_pins_mx: usart3_sleep_mx-0 {
                                 pins {
                                         pinmux = <STM32_PINMUX('B', 12, ANALOG)>, /* USART3_RX */
-                                         <STM32_PINMUX('I', 10, ANALOG)>, /* USART3_CTS */
                                          <STM32_PINMUX('D', 8, ANALOG)>, /* USART3_TX */
                                          <STM32_PINMUX('G', 8, ANALOG)>; /* USART3_RTS */
                                 };
