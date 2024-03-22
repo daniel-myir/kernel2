@@ -698,6 +698,15 @@
 
 };
 
+/*RS232*/
+&uart8 {
+        pinctrl-names = "default", "sleep";
+        pinctrl-0 = <&uart8_pins_mx>;
+        pinctrl-1 = <&uart8_sleep_pins_mx>;
+        status = "okay";
+
+};
+
 /*rs485*/
 &usart3{
         pinctrl-names = "default", "sleep";
