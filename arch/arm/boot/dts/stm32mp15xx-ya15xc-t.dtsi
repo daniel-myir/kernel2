@@ -670,7 +670,7 @@
         pinctrl-0 = <&usart1_pins_mx &usart1_pins_z_mx>;
         pinctrl-1 = <&usart1_sleep_pins_mx &usart1_sleep_pins_z_mx>;
         uart-has-rtscts;
-        status = "okay";
+        status = "disabled";
 
         bluetooth {
 		//shutdown-gpios = <&pcf8575 3 GPIO_ACTIVE_HIGH>;
