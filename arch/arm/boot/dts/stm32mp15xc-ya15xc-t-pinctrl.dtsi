@@ -850,32 +850,31 @@
 			};
 
 			
-			spi2_pin_a: spi2-0 {
-				pinmux = <STM32_PINMUX('I', 1, AF5)>, /* SPI2_SCK */
-                                         <STM32_PINMUX('I', 3, AF5)>; /* SPI2_MOSI */
-                                        bias-disable;
-                                        drive-push-pull;
-                                        slew-rate = <1>;
+			spi2_pins_a: spi2-0 {
+				pins {
+					pinmux = <STM32_PINMUX('I', 1, AF5)>, /* SPI2_SCK */
+                             <STM32_PINMUX('I', 3, AF5)>, /* SPI2_MOSI */
+                             <STM32_PINMUX('I', 2, AF5)>; /* SPI2_MISO */
+                             bias-disable;
+                             drive-push-pull;
+                             slew-rate = <1>;
 			
-				pins2 {
-                                        pinmux = <STM32_PINMUX('I', 2, AF5)>; /* SPI2_MISO */
-                                        bias-disable;
-                                };
-
+	            };
 			};
+			
 			spi2_sleep_pins_a: spi2-sleep-0 {
-                                pins {
-                                        pinmux = <STM32_PINMUX('I', 1, ANALOG)>, /* SPI2_SCK */
-                                                 <STM32_PINMUX('I', 2, ANALOG)>, /* SPI2_MISO */
-                                                 <STM32_PINMUX('I', 3, ANALOG)>; /* SPI2_MOSI */
-                                };
-                        };
+                pins {
+                    pinmux = <STM32_PINMUX('I', 1, ANALOG)>, /* SPI2_SCK */
+                             <STM32_PINMUX('I', 2, ANALOG)>, /* SPI2_MISO */
+                             <STM32_PINMUX('I', 3, ANALOG)>; /* SPI2_MOSI */
+                };
+           };
 
 			spi5_pins_mx: spi5_mx-0 {
 				pins {
 					pinmux = <STM32_PINMUX('F', 11, AF5)>, /* SPI5_MOSI */
-					 <STM32_PINMUX('H', 6, AF5)>, /* SPI5_SCK */
-					 <STM32_PINMUX('H', 7, AF5)>; /* SPI5_MISO */
+					 <STM32_PINMUX('H', 6, AF5)>; /* SPI5_SCK */
+					 //<STM32_PINMUX('H', 7, AF5)>; /* SPI5_MISO */
 				bias-disable;
 				drive-push-pull;
 				slew-rate = <1>;
@@ -885,8 +884,8 @@
 			spi5_sleep_pins_mx: spi5_sleep_mx-0 {
 				pins {
 					pinmux = <STM32_PINMUX('F', 11, ANALOG)>, /* SPI5_MOSI */
-					 <STM32_PINMUX('H', 6, ANALOG)>, /* SPI5_SCK */
-					 <STM32_PINMUX('H', 7, ANALOG)>; /* SPI5_MISO */
+					 <STM32_PINMUX('H', 6, ANALOG)>; /* SPI5_SCK */
+					 //<STM32_PINMUX('H', 7, ANALOG)>; /* SPI5_MISO */
 				};
 			};
 

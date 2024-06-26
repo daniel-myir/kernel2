@@ -720,12 +720,47 @@
 	pinctrl-0 = <&spi5_pins_mx>;
 	pinctrl-1 = <&spi5_sleep_pins_mx>;
 	cs-gpios = <&gpioh 5 0>;
-	status = "disabled";
+	status = "okay";
 
 	spidev@0 {     
        		 compatible = "spidev";
         	spi-max-frequency = <20000000>;
         	reg = <0>;
+    };
+};
+
+&spi2 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&spi2_pins_a>;
+	pinctrl-1 = <&spi2_sleep_pins_a>;
+	cs-gpios = <&gpioi 0 0>;
+	status = "okay";
+
+	//spidev@0 {     
+    //   		 compatible = "spidev";
+    //    	spi-max-frequency = <20000000>;
+    //    	reg = <0>;
+    //};
+
+    ads7846@0 {
+                compatible = "ti,ads7846";
+                reg = <0x0>;
+                spi-max-frequency = <1000000>;
+                interrupt-parent = <&gpioe>;
+                interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+                //gpios = <&gpioe 12 0>;
+                pendown-gpio = <&gpioe 12 0>; /*GPIOE 12*/
+                
+                //ti,x-min = /bits/ 16 <0>;
+                //ti,x-max = /bits/ 16 <2400>;
+                //ti,y-min = /bits/ 16 <0>;
+                //ti,y-max = /bits/ 16 <3200>;
+                //ti,x-plate-ohms = /bits/ 16 <40>;
+                //ti,pressure-max = /bits/ 16 <255>;
+				touchscreen-size-x = <240>;
+				touchscreen-size-y = <320>;
+                wakeup-source;
+                status = "okay";
     };
 };
 
