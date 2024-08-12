@@ -724,8 +724,8 @@
 
 	spidev@0 {     
        		 compatible = "spidev";
-        	spi-max-frequency = <20000000>;
-        	reg = <0>;
+        	 spi-max-frequency = <20000000>;
+        	 reg = <0>;
     };
 };
 
@@ -736,30 +736,45 @@
 	cs-gpios = <&gpioi 0 0>;
 	status = "okay";
 
-	//spidev@0 {     
-    //   		 compatible = "spidev";
-    //    	spi-max-frequency = <20000000>;
-    //    	reg = <0>;
-    //};
-
     ads7846@0 {
                 compatible = "ti,ads7846";
+                //compatible = "ti,tsc2046";
                 reg = <0x0>;
-                spi-max-frequency = <1000000>;
+                spi-max-frequency = <100000>;
                 interrupt-parent = <&gpioe>;
                 interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
-                //gpios = <&gpioe 12 0>;
                 pendown-gpio = <&gpioe 12 0>; /*GPIOE 12*/
+                vcc-supply = <&v3v3>;
+
+                ti,swap-xy;
+                ti,vref-mv = /bits/ 16 <3300>;
+                ti,vref-delay-usecs = /bits/ 16 <107>;
+                //ti,penirq-recheck-delay-usecs = /bits/ 16 <200>; 
+                ti,x-min = /bits/ 16 <0>;
+                ti,x-max = /bits/ 16 <4095>;
+                ti,y-min = /bits/ 16 <0>;
+                ti,y-max = /bits/ 16 <4095>;
+                //ti,x-min = /bits/ 16 <0xB0>;
+				//ti,y-min = /bits/ 16 <0x231>;
+				//ti,x-max = /bits/ 16 <0xF49>;
+				//ti,y-max = /bits/ 16 <0xF6B>;
+				ti,x-plate-ohms = /bits/ 16 <120>;
+                //ti,x-plate-ohms = /bits/ 16 <343>;
+                //ti,y-plate-ohms = /bits/ 16 <537>;
+                ti,pressure-min = /bits/ 16 <0>;
+                ti,pressure-max = /bits/ 16 <255>;
+                //ti,pressure-max = /bits/ 16 <4095>;
+
+                //ti,debounce-max = /bits/ 16 <10>;
+                //ti,debounce-tol = /bits/ 16 <5>;
+                //ti,debounce-rep = /bits/ 16 <1>;
                 
-                //ti,x-min = /bits/ 16 <0>;
-                //ti,x-max = /bits/ 16 <2400>;
-                //ti,y-min = /bits/ 16 <0>;
-                //ti,y-max = /bits/ 16 <3200>;
-                //ti,x-plate-ohms = /bits/ 16 <40>;
-                //ti,pressure-max = /bits/ 16 <255>;
-				touchscreen-size-x = <240>;
-				touchscreen-size-y = <320>;
-                wakeup-source;
+                //ti,settle-delay-usec = /bits/ 16 <100>;
+                //ti,keep-vref-on;
+                
+                //wakeup-source;
+                linux,wakeup;
+                
                 status = "okay";
     };
 };
