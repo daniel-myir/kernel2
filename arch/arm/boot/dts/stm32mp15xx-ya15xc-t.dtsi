@@ -746,10 +746,10 @@
                 pendown-gpio = <&gpioe 12 0>; /*GPIOE 12*/
                 vcc-supply = <&v3v3>;
 
-                ti,swap-xy;
-                ti,vref-mv = /bits/ 16 <3300>;
-                ti,vref-delay-usecs = /bits/ 16 <107>;
-                //ti,penirq-recheck-delay-usecs = /bits/ 16 <200>; 
+                //ti,swap-xy;
+                //ti,vref-mv = /bits/ 16 <3300>;
+                //ti,vref-delay-usecs = /bits/ 16 <107>;
+                //ti,penirq-recheck-delay-usecs = /bits/ 16 <300>; 
                 ti,x-min = /bits/ 16 <0>;
                 ti,x-max = /bits/ 16 <4095>;
                 ti,y-min = /bits/ 16 <0>;
@@ -758,7 +758,7 @@
 				//ti,y-min = /bits/ 16 <0x231>;
 				//ti,x-max = /bits/ 16 <0xF49>;
 				//ti,y-max = /bits/ 16 <0xF6B>;
-				ti,x-plate-ohms = /bits/ 16 <120>;
+				ti,x-plate-ohms = /bits/ 16 <400>;
                 //ti,x-plate-ohms = /bits/ 16 <343>;
                 //ti,y-plate-ohms = /bits/ 16 <537>;
                 ti,pressure-min = /bits/ 16 <0>;
