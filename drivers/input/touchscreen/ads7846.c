@@ -182,10 +182,10 @@ struct ads7846 {
 #define	READ_12BIT_DFR(x, adc, vref) (ADS_START | ADS_A2A1A0_d_ ## x \
 	| ADS_12_BIT | ADS_DFR | \
 	(adc ? ADS_PD10_ADC_ON : 0) | (vref ? ADS_PD10_REF_ON : 0))
-#if 1	//XPT4096 24.08.14 YRKIM
+#if 0	//XPT2046 24.08.14 YRKIM
 #define	READ_Y(vref)	(READ_12BIT_DFR(y,  0, vref))
-#define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 1, vref))
-#define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 1, vref))
+#define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 0, vref))
+#define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 0, vref))
 
 #define	READ_X(vref)	(READ_12BIT_DFR(x,  0, vref))
 #define	PWRDOWN		(READ_12BIT_DFR(y,  0, 0))	/* LAST */
@@ -862,8 +862,8 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	/* Start with a small delay before checking pendown state */
 	msleep(TS_POLL_DELAY);
 
-	// XPT4096 24.08.15 YRKIM
-	//disable_irq(ts->spi->irq);
+	// XPT2046 24.08.15 YRKIM
+	disable_irq_nosync(ts->spi->irq);
 	
 	while (!ts->stopped && get_pendown_state(ts)) {
 
@@ -888,8 +888,8 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 		dev_vdbg(&ts->spi->dev, "UP\n");
 	}
 
-	// XPT4096 24.08.15 YRKIM
-	//enable_irq(ts->spi->irq);
+	// XPT2046 24.08.15 YRKIM
+	enable_irq_nosync(ts->spi->irq);
 
 	return IRQ_HANDLED;
 }
