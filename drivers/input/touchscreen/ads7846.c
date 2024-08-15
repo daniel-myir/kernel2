@@ -863,7 +863,7 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	msleep(TS_POLL_DELAY);
 
 	// XPT2046 24.08.15 YRKIM
-	disable_irq_nosync(ts->spi->irq);
+	disable_irq(ts->spi->irq);
 	
 	while (!ts->stopped && get_pendown_state(ts)) {
 
@@ -889,7 +889,7 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	}
 
 	// XPT2046 24.08.15 YRKIM
-	enable_irq_nosync(ts->spi->irq);
+	enable_irq(ts->spi->irq);
 
 	return IRQ_HANDLED;
 }
