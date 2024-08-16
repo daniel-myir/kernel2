@@ -786,7 +786,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 		z1 = packet->tc.z1;
 		z2 = packet->tc.z2;
 	}
-	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d)\n", x, y, z1, z2);
+	
 	/* range filtering */
 	if (x == MAX_12BIT)
 		x = 0;
@@ -810,7 +810,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 	} else {
 		Rt = 0;
 	}
-
+	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
 	/*
 	 * Sample found inconsistent by debouncing or pressure is beyond
 	 * the maximum. Don't report it to user space, repeat at least

@@ -758,12 +758,12 @@
 				//ti,y-min = /bits/ 16 <0x231>;
 				//ti,x-max = /bits/ 16 <0xF49>;
 				//ti,y-max = /bits/ 16 <0xF6B>;
-				ti,x-plate-ohms = /bits/ 16 <400>;
+				ti,x-plate-ohms = /bits/ 16 <200>;
                 //ti,x-plate-ohms = /bits/ 16 <343>;
                 //ti,y-plate-ohms = /bits/ 16 <537>;
                 ti,pressure-min = /bits/ 16 <0>;
-                ti,pressure-max = /bits/ 16 <255>;
-                //ti,pressure-max = /bits/ 16 <4095>;
+                //ti,pressure-max = /bits/ 16 <255>;
+                ti,pressure-max = /bits/ 16 <4095>;
 
                 //ti,debounce-max = /bits/ 16 <10>;
                 //ti,debounce-tol = /bits/ 16 <5>;
