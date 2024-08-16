@@ -786,7 +786,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 		z1 = packet->tc.z1;
 		z2 = packet->tc.z2;
 	}
-
+	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d)\n", x, y, z1, z2);
 	/* range filtering */
 	if (x == MAX_12BIT)
 		x = 0;
@@ -1032,13 +1032,11 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_y = READ_Y(vref);
 		x->tx_buf = &packet->read_y;
 		x->len = 1;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.y;
 		x->len = 2;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 	}
 
@@ -1081,13 +1079,11 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_x = READ_X(vref);
 		x->tx_buf = &packet->read_x;
 		x->len = 1;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.x;
 		x->len = 2;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 	}
 
@@ -1117,13 +1113,11 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_z1 = READ_Z1(vref);
 		x->tx_buf = &packet->read_z1;
 		x->len = 1;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.z1;
 		x->len = 2;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		/* ... maybe discard first sample ... */
@@ -1150,13 +1144,11 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_z2 = READ_Z2(vref);
 		x->tx_buf = &packet->read_z2;
 		x->len = 1;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.z2;
 		x->len = 2;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		/* ... maybe discard first sample ... */
@@ -1193,13 +1185,11 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->pwrdown = PWRDOWN;
 		x->tx_buf = &packet->pwrdown;
 		x->len = 1;
-		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->dummy;
 		x->len = 2;
-		x->speed_hz = ts->spi->max_speed_hz;
 	}
 
 	CS_CHANGE(*x);
