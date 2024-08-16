@@ -715,7 +715,7 @@ static void ads7846_read_state(struct ads7846 *ts)
 		m = &ts->msg[msg_idx];
 		error = spi_sync(ts->spi, m);
 		if (error) {
-			dev_err(&ts->spi->dev, "msgp%d]:spi_sync --> %d\n", msg_idx, error);
+			dev_err(&ts->spi->dev, "msg[%d]:spi_sync --> %d\n", msg_idx, error);
 			packet->tc.ignore = true;
 			return;
 		}
@@ -863,8 +863,9 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	msleep(TS_POLL_DELAY);
 
 	// XPT2046 24.08.15 YRKIM
+	dev_err(&ts->spi->dev, "IRQ --> %d\n", 0);
 	disable_irq(ts->spi->irq);
-	
+	dev_err(&ts->spi->dev, "IRQ --> %d\n", 1);
 	while (!ts->stopped && get_pendown_state(ts)) {
 
 		/* pen is down, continue with the measurement */
@@ -889,7 +890,9 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	}
 
 	// XPT2046 24.08.15 YRKIM
+	dev_err(&ts->spi->dev, "IRQ --> %d\n", 2);
 	enable_irq(ts->spi->irq);
+	dev_err(&ts->spi->dev, "IRQ --> %d\n", 3);
 
 	return IRQ_HANDLED;
 }
