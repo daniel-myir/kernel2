@@ -98,8 +98,6 @@ struct ads7846 {
 	struct spi_device	*spi;
 	struct regulator	*reg;
 
-	u32			max_speed_hz;
-	
 #if IS_ENABLED(CONFIG_HWMON)
 	struct device		*hwmon;
 #endif
@@ -715,8 +713,6 @@ static void ads7846_read_state(struct ads7846 *ts)
 		ts->wait_for_sync();
 
 		m = &ts->msg[msg_idx];
-		if(ts->spi->max_speed_hz != ts->max_speed_hz)
-			ts->spi->max_speed_hz = ts->max_speed_hz;
 		error = spi_sync(ts->spi, m);
 		if (error) {
 			dev_err(&ts->spi->dev, "msg[%d]:spi_sync --> %d\n", msg_idx, error);
@@ -1024,11 +1020,13 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_y = READ_Y(vref);
 		x->tx_buf = &packet->read_y;
 		x->len = 1;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.y;
 		x->len = 2;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 	}
 
@@ -1071,11 +1069,13 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_x = READ_X(vref);
 		x->tx_buf = &packet->read_x;
 		x->len = 1;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.x;
 		x->len = 2;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 	}
 
@@ -1105,11 +1105,13 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_z1 = READ_Z1(vref);
 		x->tx_buf = &packet->read_z1;
 		x->len = 1;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.z1;
 		x->len = 2;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		/* ... maybe discard first sample ... */
@@ -1136,11 +1138,13 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->read_z2 = READ_Z2(vref);
 		x->tx_buf = &packet->read_z2;
 		x->len = 1;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->tc.z2;
 		x->len = 2;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		/* ... maybe discard first sample ... */
@@ -1177,11 +1181,13 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		packet->pwrdown = PWRDOWN;
 		x->tx_buf = &packet->pwrdown;
 		x->len = 1;
+		x->speed_hz = ts->spi->max_speed_hz;
 		spi_message_add_tail(x, m);
 
 		x++;
 		x->rx_buf = &packet->dummy;
 		x->len = 2;
+		x->speed_hz = ts->spi->max_speed_hz;
 	}
 
 	CS_CHANGE(*x);
@@ -1321,7 +1327,6 @@ static int ads7846_probe(struct spi_device *spi)
 	ts->packet = packet;
 	ts->spi = spi;
 	ts->input = input_dev;
-	ts->max_speed_hz = spi->max_speed_hz;
 
 	mutex_init(&ts->lock);
 	init_waitqueue_head(&ts->wait);
