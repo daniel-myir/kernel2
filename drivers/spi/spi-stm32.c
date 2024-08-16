@@ -1626,6 +1626,9 @@ static int stm32_spi_transfer_one_setup(struct stm32_spi *spi,
 	mbr = stm32_spi_prepare_mbr(spi, transfer->speed_hz,
 				    spi->cfg->baud_rate_div_min,
 				    spi->cfg->baud_rate_div_max);
+	dev_err(spi->dev, "speed_hz(%d), min(%d), max(%d), mbr(%d)\n",
+		transfer->speed_hz, spi->cfg->baud_rate_div_min,
+				    spi->cfg->baud_rate_div_max, mbr);
 	if (mbr < 0) {
 		ret = mbr;
 		goto out;
@@ -1636,6 +1639,7 @@ static int stm32_spi_transfer_one_setup(struct stm32_spi *spi,
 
 	comm_type = stm32_spi_communication_type(spi_dev, transfer);
 	ret = spi->cfg->set_mode(spi, comm_type);
+	dev_err(spi->dev, "comm_type(%x), ret(%d)\n", comm_type, ret);
 	if (ret < 0)
 		goto out;
 
@@ -1653,6 +1657,7 @@ static int stm32_spi_transfer_one_setup(struct stm32_spi *spi,
 
 	if (spi->cfg->set_number_of_data) {
 		ret = spi->cfg->set_number_of_data(spi, nb_words);
+		dev_err(spi->dev, "nb_words(%x), ret(%d)\n", nb_words, ret);
 		if (ret < 0)
 			goto out;
 	}
