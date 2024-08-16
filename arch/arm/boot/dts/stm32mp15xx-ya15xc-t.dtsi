@@ -775,7 +775,7 @@
                 //wakeup-source;
                 linux,wakeup;
                 
-                status = "okay";
+                //status = "okay";
     };
 };
 

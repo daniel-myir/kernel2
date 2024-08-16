@@ -354,10 +354,12 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	req->command = (u8) command;
 	req->xfer[2].tx_buf = &req->command;
 	req->xfer[2].len = 1;
+	req->xfer[2].speed_hz = spi->max_speed_hz;
 	spi_message_add_tail(&req->xfer[2], &req->msg);
 
 	req->xfer[3].rx_buf = &req->sample;
 	req->xfer[3].len = 2;
+	req->xfer[3].speed_hz = spi->max_speed_hz;
 	spi_message_add_tail(&req->xfer[3], &req->msg);
 
 	/* REVISIT:  take a few more samples, and compare ... */
@@ -366,10 +368,12 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	req->ref_off = PWRDOWN;
 	req->xfer[4].tx_buf = &req->ref_off;
 	req->xfer[4].len = 1;
+	req->xfer[4].speed_hz = spi->max_speed_hz;
 	spi_message_add_tail(&req->xfer[4], &req->msg);
 
 	req->xfer[5].rx_buf = &req->scratch;
 	req->xfer[5].len = 2;
+	req->xfer[5].speed_hz = spi->max_speed_hz;
 	CS_CHANGE(req->xfer[5]);
 	spi_message_add_tail(&req->xfer[5], &req->msg);
 
@@ -863,9 +867,9 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	msleep(TS_POLL_DELAY);
 
 	// XPT2046 24.08.15 YRKIM
-	dev_err(&ts->spi->dev, "IRQ --> %d\n", 0);
+	//dev_err(&ts->spi->dev, "IRQ --> %d\n", 0);
 	disable_irq_nosync(ts->spi->irq);
-	dev_err(&ts->spi->dev, "IRQ --> %d\n", 1);
+	//dev_err(&ts->spi->dev, "IRQ --> %d\n", 1);
 	while (!ts->stopped && get_pendown_state(ts)) {
 
 		/* pen is down, continue with the measurement */
@@ -890,9 +894,9 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 	}
 
 	// XPT2046 24.08.15 YRKIM
-	dev_err(&ts->spi->dev, "IRQ --> %d\n", 2);
+	//dev_err(&ts->spi->dev, "IRQ --> %d\n", 2);
 	enable_irq(ts->spi->irq);
-	dev_err(&ts->spi->dev, "IRQ --> %d\n", 3);
+	//dev_err(&ts->spi->dev, "IRQ --> %d\n", 3);
 
 	return IRQ_HANDLED;
 }
@@ -1003,6 +1007,7 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		vref = 0;
 	}
 
+	memset((void *)x, 0, sizeof(ts->xfer));
 	ts->msg_count = 1;
 	spi_message_init(m);
 	m->context = ts;
