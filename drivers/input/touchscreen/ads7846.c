@@ -715,8 +715,8 @@ static void ads7846_read_state(struct ads7846 *ts)
 		ts->wait_for_sync();
 
 		m = &ts->msg[msg_idx];
-		if(ts->spi.max_speed_hz != ts->max_speed_hz)
-			ts->spi.max_speed_hz = ts->max_speed_hz;
+		if(ts->spi->max_speed_hz != ts->max_speed_hz)
+			ts->spi->max_speed_hz = ts->max_speed_hz;
 		error = spi_sync(ts->spi, m);
 		if (error) {
 			dev_err(&ts->spi->dev, "msg[%d]:spi_sync --> %d\n", msg_idx, error);
