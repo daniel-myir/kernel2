@@ -98,6 +98,8 @@ struct ads7846 {
 	struct spi_device	*spi;
 	struct regulator	*reg;
 
+	u32			max_speed_hz;
+	
 #if IS_ENABLED(CONFIG_HWMON)
 	struct device		*hwmon;
 #endif
@@ -713,6 +715,8 @@ static void ads7846_read_state(struct ads7846 *ts)
 		ts->wait_for_sync();
 
 		m = &ts->msg[msg_idx];
+		if(ts->spi.max_speed_hz != ts->max_speed_hz)
+			ts->spi.max_speed_hz = ts->max_speed_hz;
 		error = spi_sync(ts->spi, m);
 		if (error) {
 			dev_err(&ts->spi->dev, "msg[%d]:spi_sync --> %d\n", msg_idx, error);
@@ -1317,6 +1321,7 @@ static int ads7846_probe(struct spi_device *spi)
 	ts->packet = packet;
 	ts->spi = spi;
 	ts->input = input_dev;
+	ts->max_speed_hz = spi->max_speed_hz;
 
 	mutex_init(&ts->lock);
 	init_waitqueue_head(&ts->wait);
