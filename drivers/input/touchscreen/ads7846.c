@@ -864,7 +864,7 @@ static irqreturn_t ads7846_irq(int irq, void *handle)
 
 	// XPT2046 24.08.15 YRKIM
 	dev_err(&ts->spi->dev, "IRQ --> %d\n", 0);
-	disable_irq(ts->spi->irq);
+	disable_irq_nosync(ts->spi->irq);
 	dev_err(&ts->spi->dev, "IRQ --> %d\n", 1);
 	while (!ts->stopped && get_pendown_state(ts)) {
 
