@@ -711,7 +711,14 @@ static void ads7846_read_state(struct ads7846 *ts)
 	int val;
 	int action;
 	int error;
-
+	int i;
+	
+	for(i = 0; i < 18; i++)
+	{
+		if(ts->xfer[i].len)
+			ts->xfer[i].speed_hz = ts->spi->max_speed_hz;
+	}
+	
 	while (msg_idx < ts->msg_count) {
 
 		ts->wait_for_sync();
