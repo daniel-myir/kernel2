@@ -746,7 +746,7 @@
                 pendown-gpio = <&gpioe 12 0>; /*GPIOE 12*/
                 vcc-supply = <&v3v3>;
 
-                //ti,swap-xy;
+                ti,swap-xy;
                 //ti,vref-mv = /bits/ 16 <3300>;
                 //ti,vref-delay-usecs = /bits/ 16 <107>;
                 //ti,penirq-recheck-delay-usecs = /bits/ 16 <300>; 
