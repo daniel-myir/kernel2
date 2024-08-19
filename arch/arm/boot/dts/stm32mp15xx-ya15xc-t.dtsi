@@ -750,9 +750,9 @@
                 //ti,vref-mv = /bits/ 16 <3300>;
                 //ti,vref-delay-usecs = /bits/ 16 <107>;
                 //ti,penirq-recheck-delay-usecs = /bits/ 16 <300>; 
-                ti,x-min = /bits/ 16 <256>;
+                ti,x-min = /bits/ 16 <0>;
                 ti,x-max = /bits/ 16 <4095>;
-                ti,y-min = /bits/ 16 <256>;
+                ti,y-min = /bits/ 16 <0>;
                 ti,y-max = /bits/ 16 <4095>;
                 //ti,x-min = /bits/ 16 <0xB0>;
 				//ti,y-min = /bits/ 16 <0x231>;
