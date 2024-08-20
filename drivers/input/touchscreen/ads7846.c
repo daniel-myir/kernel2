@@ -62,6 +62,8 @@
 /* this driver doesn't aim at the peak continuous sample rate */
 #define	SAMPLE_BITS	(8 /*cmd*/ + 16 /*sample*/ + 2 /* before, after */)
 
+#define XFER_SIZE			18
+
 struct ts_event {
 	/*
 	 * For portability, we can't read 12 bit values using SPI (which
@@ -113,7 +115,7 @@ struct ads7846 {
 
 	struct ads7846_packet	*packet;
 
-	struct spi_transfer	xfer[18];
+	struct spi_transfer	xfer[XFER_SIZE];
 	struct spi_message	msg[5];
 	int			msg_count;
 	wait_queue_head_t	wait;
@@ -713,7 +715,7 @@ static void ads7846_read_state(struct ads7846 *ts)
 	int error;
 	int i;
 	
-	for(i = 0; i < 18; i++)
+	for(i = 0; i < XFER_SIZE; i++)
 	{
 		if(ts->xfer[i].len)
 			ts->xfer[i].speed_hz = ts->spi->max_speed_hz;
@@ -810,7 +812,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 	} else {
 		Rt = 0;
 	}
-	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
+	//dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
 	/*
 	 * Sample found inconsistent by debouncing or pressure is beyond
 	 * the maximum. Don't report it to user space, repeat at least
