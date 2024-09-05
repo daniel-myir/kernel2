@@ -188,7 +188,7 @@ struct ads7846 {
 #ifdef SUPPORT_XPT2046	//XPT2046 24.08.14 YRKIM
 #define	READ_Y(vref)	(READ_12BIT_DFR(y,  1, vref))
 #define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 1, vref))
-#define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 0, vref))
+#define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 1, vref))
 
 #define	READ_X(vref)	(READ_12BIT_DFR(x,  1, vref))
 #define	PWRDOWN		(READ_12BIT_DFR(y,  0, 0))	/* LAST */
@@ -1170,7 +1170,7 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		}
 	}
 	
-	#ifndef SUPPORT_XPT2046
+	#if 1//ndef SUPPORT_XPT2046
 	/* power down */
 	ts->msg_count++;
 	m++;
