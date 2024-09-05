@@ -812,7 +812,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 	} else {
 		Rt = 0;
 	}
-	//dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
+	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
 	/*
 	 * Sample found inconsistent by debouncing or pressure is beyond
 	 * the maximum. Don't report it to user space, repeat at least
@@ -1168,7 +1168,7 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 			spi_message_add_tail(x, m);
 		}
 	}
-
+	#if 0
 	/* power down */
 	ts->msg_count++;
 	m++;
@@ -1193,7 +1193,7 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		x->rx_buf = &packet->dummy;
 		x->len = 2;
 	}
-
+	#endif
 	CS_CHANGE(*x);
 	spi_message_add_tail(x, m);
 }
