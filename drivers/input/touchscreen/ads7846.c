@@ -186,11 +186,11 @@ struct ads7846 {
 	| ADS_12_BIT | ADS_DFR | \
 	(adc ? ADS_PD10_ADC_ON : 0) | (vref ? ADS_PD10_REF_ON : 0))
 #ifdef SUPPORT_XPT2046	//XPT2046 24.08.14 YRKIM
-#define	READ_Y(vref)	(READ_12BIT_DFR(y,  0, vref))
-#define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 0, vref))
+#define	READ_Y(vref)	(READ_12BIT_DFR(y,  1, vref))
+#define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 1, vref))
 #define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 0, vref))
 
-#define	READ_X(vref)	(READ_12BIT_DFR(x,  0, vref))
+#define	READ_X(vref)	(READ_12BIT_DFR(x,  1, vref))
 #define	PWRDOWN		(READ_12BIT_DFR(y,  0, 0))	/* LAST */
 #else
 #define	READ_Y(vref)	(READ_12BIT_DFR(y,  1, vref))
