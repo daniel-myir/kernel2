@@ -812,7 +812,7 @@ static void ads7846_report_state(struct ads7846 *ts)
 	} else {
 		Rt = 0;
 	}
-	dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
+	//dev_err(&ts->spi->dev, "x(%d),y(%d),z1(%d),z2(%d) : RT(%d)\n", x, y, z1, z2, Rt);
 	/*
 	 * Sample found inconsistent by debouncing or pressure is beyond
 	 * the maximum. Don't report it to user space, repeat at least
@@ -1460,7 +1460,7 @@ static int ads7846_probe(struct spi_device *spi)
 	 * Take a first sample, leaving nPENIRQ active and vREF off; avoid
 	 * the touchscreen, in case it's not connected.
 	 */
-	#if 0 
+	#if 0 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	if (ts->model == 7845)
 		ads7845_read12_ser(&spi->dev, PWRDOWN);
 	else
