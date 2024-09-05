@@ -155,6 +155,7 @@ struct ads7846 {
 #define	CS_CHANGE(xfer)	((xfer).cs_change = 0)
 #endif
 
+#define SUPPORT_XPT2046			// XPT2046 IC
 /*--------------------------------------------------------------------------*/
 
 /* The ADS7846 has touchscreen and other sensors.
@@ -184,7 +185,7 @@ struct ads7846 {
 #define	READ_12BIT_DFR(x, adc, vref) (ADS_START | ADS_A2A1A0_d_ ## x \
 	| ADS_12_BIT | ADS_DFR | \
 	(adc ? ADS_PD10_ADC_ON : 0) | (vref ? ADS_PD10_REF_ON : 0))
-#if 1	//XPT2046 24.08.14 YRKIM
+#ifdef SUPPORT_XPT2046	//XPT2046 24.08.14 YRKIM
 #define	READ_Y(vref)	(READ_12BIT_DFR(y,  0, vref))
 #define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 0, vref))
 #define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 0, vref))
@@ -1169,7 +1170,7 @@ static void ads7846_setup_spi_msg(struct ads7846 *ts,
 		}
 	}
 	
-	#if 0
+	#ifndef SUPPORT_XPT2046
 	/* power down */
 	ts->msg_count++;
 	m++;
@@ -1462,7 +1463,7 @@ static int ads7846_probe(struct spi_device *spi)
 	 * Take a first sample, leaving nPENIRQ active and vREF off; avoid
 	 * the touchscreen, in case it's not connected.
 	 */
-	#if 0 //24.09.05 YRKIM remove comm. on booting for xpt2046
+	#ifndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	if (ts->model == 7845)
 		ads7845_read12_ser(&spi->dev, PWRDOWN);
 	else
