@@ -382,7 +382,6 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	CS_CHANGE(req->xfer[5]);
 	spi_message_add_tail(&req->xfer[5], &req->msg);
 
-	#ifndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	mutex_lock(&ts->lock);
 	ads7846_stop(ts);
 	status = spi_sync(spi, &req->msg);
@@ -395,7 +394,6 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 		status = status >> 3;
 		status &= 0x0fff;
 	}
-	#endif
 	
 	kfree(req);
 	return status;
