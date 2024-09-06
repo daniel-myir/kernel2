@@ -352,7 +352,8 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 
 	/* Enable ADC in every case */
 	command |= ADS_PD10_ADC_ON;
-
+	
+#ifndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	/* take sample */
 	req->command = (u8) command;
 	req->xfer[2].tx_buf = &req->command;
@@ -379,6 +380,7 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	req->xfer[5].speed_hz = spi->max_speed_hz;
 	CS_CHANGE(req->xfer[5]);
 	spi_message_add_tail(&req->xfer[5], &req->msg);
+#endif
 
 	mutex_lock(&ts->lock);
 	ads7846_stop(ts);
@@ -1470,7 +1472,7 @@ static int ads7846_probe(struct spi_device *spi)
 	 * Take a first sample, leaving nPENIRQ active and vREF off; avoid
 	 * the touchscreen, in case it's not connected.
 	 */
-	#ifndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
+	#if 1//ndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	if (ts->model == 7845)
 		ads7845_read12_ser(&spi->dev, PWRDOWN);
 	else
