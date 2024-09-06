@@ -191,7 +191,7 @@ struct ads7846 {
 #define	READ_Z2(vref)	(READ_12BIT_DFR(z2, 1, vref))
 
 #define	READ_X(vref)	(READ_12BIT_DFR(x,  1, vref))
-#define	PWRDOWN		(READ_12BIT_DFR(z1,  0, 0))	/* LAST */
+#define	PWRDOWN		(READ_12BIT_DFR(y,  0, 0))	/* LAST */
 #else
 #define	READ_Y(vref)	(READ_12BIT_DFR(y,  1, vref))
 #define	READ_Z1(vref)	(READ_12BIT_DFR(z1, 1, vref))
@@ -804,12 +804,19 @@ static void ads7846_report_state(struct ads7846 *ts)
 		dev_vdbg(&ts->spi->dev, "x/y: %d/%d, PD %d\n", x, y, Rt);
 	} else if (likely(x && z1)) {
 		/* compute touch pressure resistance using equation #2 */
+	#ifdef SUPPORT_XPT2046
+		Rt = ts->x_plate_ohms;
+		Rt *= x;
+		Rt *= (z2/z1 -1);
+		Rt /= 4096;
+	#else
 		Rt = z2;
 		Rt -= z1;
 		Rt *= x;
 		Rt *= ts->x_plate_ohms;
 		Rt /= z1;
 		Rt = (Rt + 2047) >> 12;
+	#endif	
 	} else {
 		Rt = 0;
 	}
