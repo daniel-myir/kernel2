@@ -394,6 +394,10 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 		status = status >> 3;
 		status &= 0x0fff;
 	}
+	else
+	{
+		dev_err(&spi->dev, "spi_sync --> %d\n", status);
+	}
 	
 	kfree(req);
 	return status;
