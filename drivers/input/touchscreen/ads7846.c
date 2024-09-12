@@ -353,7 +353,6 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	/* Enable ADC in every case */
 	command |= ADS_PD10_ADC_ON;
 	
-	#ifndef SUPPORT_XPT2046 //24.09.05 YRKIM remove comm. on booting for xpt2046
 	/* take sample */
 	req->command = (u8) command;
 	req->xfer[2].tx_buf = &req->command;
@@ -365,7 +364,6 @@ static int ads7846_read12_ser(struct device *dev, unsigned command)
 	req->xfer[3].len = 2;
 	req->xfer[3].speed_hz = spi->max_speed_hz;
 	spi_message_add_tail(&req->xfer[3], &req->msg);
-	#endif
 	
 	/* REVISIT:  take a few more samples, and compare ... */
 
