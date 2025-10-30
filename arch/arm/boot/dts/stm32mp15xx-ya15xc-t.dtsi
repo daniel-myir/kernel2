@@ -673,18 +673,18 @@
         pinctrl-0 = <&usart1_pins_mx>;
         pinctrl-1 = <&usart1_sleep_pins_mx>;
         uart-has-rtscts;
-        //status = "disabled";
-	status = "okay";
+		//okay -> disabled@251030
+        status = "disabled";
 
         bluetooth {
-	//shutdown-gpios = <&pcf8575 3 GPIO_ACTIVE_HIGH>;
+	    //shutdown-gpios = <&pcf8575 3 GPIO_ACTIVE_HIGH>;
 		//device-wakeup-gpios = <&pcf8575 15 GPIO_ACTIVE_HIGH>;
 		//host-wakeup-gpios = <>;
                 compatible = "brcm,bcm43438-bt";
                 max-speed = <3000000>;
         };
 };
-/* USART6 -> &usart1_sleep_pins_z_mx -> PZ1,PZ2 / USART1 @251022 */
+/* USART6:&usart6_pins_mx -> &usart1_pins_z_mx(PZ1,PZ2)->ttySTM1 @251030 */
 &usart6{
         pinctrl-names = "default", "sleep";
         pinctrl-0 = <&usart1_pins_z_mx>;

@@ -797,8 +797,8 @@
 				status = "disabled";
 			};
 		};
-		//@251028(2)
-                usart6: serial@44003000 {
+		   //@251030
+            usart6: serial@44003000 {
 			compatible = "st,stm32h7-uart";
 			reg = <0x44003000 0x400>;
 			interrupts-extended = <&exti 29 IRQ_TYPE_LEVEL_HIGH>;
@@ -1699,7 +1699,7 @@
 			clock-names = "bus", "ddr";
 			resets = <&rcc DDRPERFM_R>;
 		};
-		//@251028-2
+		//@251030
 		usart1: serial@5c000000 {
 			compatible = "st,stm32h7-uart";
 			reg = <0x5c000000 0x400>;
