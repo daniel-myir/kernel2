@@ -797,7 +797,7 @@
 				status = "disabled";
 			};
 		};
-		   //@251030
+		   //@251031
             usart6: serial@44003000 {
 			compatible = "st,stm32h7-uart";
 			reg = <0x44003000 0x400>;
@@ -1699,7 +1699,7 @@
 			clock-names = "bus", "ddr";
 			resets = <&rcc DDRPERFM_R>;
 		};
-		//@251030
+		//@251031
 		usart1: serial@5c000000 {
 			compatible = "st,stm32h7-uart";
 			reg = <0x5c000000 0x400>;

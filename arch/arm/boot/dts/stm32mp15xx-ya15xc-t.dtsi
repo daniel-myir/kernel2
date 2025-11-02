@@ -685,21 +685,22 @@
         };
 };
 /* USART6:&usart6_pins_mx -> &usart1_pins_z_mx(PZ1,PZ2)->ttySTM1 @251030 */
-&usart6{
-        pinctrl-names = "default", "sleep";
-        pinctrl-0 = <&usart1_pins_z_mx>;
-        pinctrl-1 = <&usart1_sleep_pins_z_mx>;
-        uart-has-rtscts;
-        status = "okay";
-};
-
 //&usart6{
 //        pinctrl-names = "default", "sleep";
-//        pinctrl-0 = <&usart6_pins_mx>;
-//        pinctrl-1 = <&usart6_sleep_pins_mx>;
+//        pinctrl-0 = <&usart1_pins_z_mx>;
+//        pinctrl-1 = <&usart1_sleep_pins_z_mx>;
 //        uart-has-rtscts;
 //        status = "okay";
 //};
+
+/* USART6:&usart6_pins_mx (PZ1,PZ2)->ttySTM6 @251031 */
+&usart6{
+        pinctrl-names = "default", "sleep";
+        pinctrl-0 = <&usart6_pins_mx>;
+        pinctrl-1 = <&usart6_sleep_pins_mx>;
+        uart-has-rtscts;
+        status = "okay";
+};
 
 /*debug*/
 &uart4 {
