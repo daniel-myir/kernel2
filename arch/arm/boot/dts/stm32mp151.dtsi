@@ -797,20 +797,6 @@
 				status = "disabled";
 			};
 		};
-		   //@251031
-            usart6: serial@44003000 {
-			compatible = "st,stm32h7-uart";
-			reg = <0x44003000 0x400>;
-			interrupts-extended = <&exti 29 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&rcc USART6_K>;
-			resets = <&rcc USART6_R>;
-			wakeup-source;
-			power-domains = <&pd_core>;
-			dmas = <&dmamux1 71 0x400 0x5>,
-			       <&dmamux1 72 0x400 0x1>;
-			dma-names = "rx", "tx";
-			status = "disabled";
-		};
 
 		spi1: spi@44004000 {
 			#address-cells = <1>;
@@ -1699,17 +1685,49 @@
 			clock-names = "bus", "ddr";
 			resets = <&rcc DDRPERFM_R>;
 		};
-		//@251031
+		
+		//@251103
+		//usart1: serial@5c000000 {
+		//	compatible = "st,stm32h7-uart";
+		//	reg = <0x5c000000 0x400>;
+		//	interrupts-extended = <&exti 26 IRQ_TYPE_LEVEL_HIGH>;
+		//	clocks = <&scmi0_clk CK_SCMI0_USART1>;
+		//	resets = <&scmi0_reset RST_SCMI0_USART1>;
+		//	wakeup-source;
+		//	power-domains = <&pd_core>;
+		//	status = "disabled";
+		//};
+		//@251103
 		usart1: serial@5c000000 {
 			compatible = "st,stm32h7-uart";
 			reg = <0x5c000000 0x400>;
 			interrupts-extended = <&exti 26 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&scmi0_clk CK_SCMI0_USART1>;
-			resets = <&scmi0_reset RST_SCMI0_USART1>;
+			// USART1
+			clocks = <&rcc USART1_K>;
+			resets = <&rcc USART1_R>;
 			wakeup-source;
+			//USART6 dma
 			power-domains = <&pd_core>;
-			status = "disabled";
-		};
+			dmas = <&dmamux1 71 0x400 0x5>,
+			       <&dmamux1 72 0x400 0x1>;
+			dma-names = "rx", "tx";
+			status = "disabled";			
+		};		
+		//@251103
+        //usart6: serial@44003000 {
+		//	compatible = "st,stm32h7-uart";
+		//	reg = <0x44003000 0x400>;
+		//	interrupts-extended = <&exti 29 IRQ_TYPE_LEVEL_HIGH>;
+		//	clocks = <&rcc USART6_K>;
+		//	resets = <&rcc USART6_R>;
+		//	wakeup-source;
+		//	power-domains = <&pd_core>;
+		//	dmas = <&dmamux1 71 0x400 0x5>,
+		//	       <&dmamux1 72 0x400 0x1>;
+		//	dma-names = "rx", "tx";
+		//	status = "disabled";
+		//};
+		
 		spi6: spi@5c001000 {
 			#address-cells = <1>;
 			#size-cells = <0>;
