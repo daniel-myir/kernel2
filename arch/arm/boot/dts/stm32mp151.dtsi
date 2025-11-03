@@ -1702,11 +1702,11 @@
 			compatible = "st,stm32h7-uart";
 			reg = <0x5c000000 0x400>;
 			interrupts-extended = <&exti 26 IRQ_TYPE_LEVEL_HIGH>;
-			// USART1
-			clocks = <&rcc USART1_K>;
-			resets = <&rcc USART1_R>;
+			// rcc:USART6 ???
+			clocks = <&rcc USART6_K>;
+			resets = <&rcc USART6_R>;
 			wakeup-source;
-			//USART6 dma
+			// dma:USART6 ???
 			power-domains = <&pd_core>;
 			dmas = <&dmamux1 71 0x400 0x5>,
 			       <&dmamux1 72 0x400 0x1>;
